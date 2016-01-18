@@ -14,6 +14,7 @@ end
 
 def get_shortest_side(input)
   sorted_input = input.map { |input| input.to_i }.sort
+  [sorted_input[0], sorted_input[1]]
 end
 
 def get_size_perimeter(input)
@@ -23,17 +24,14 @@ end
 x = parse_dimensions(puzzle)
 
 p get_volume(x[0]) == 1932
-p get_shortest_side(x[0]) == [4, 21, 23]
+p get_shortest_side(x[0]) == [4, 21]
 p get_size_perimeter(get_shortest_side(x[0])) == 50
 
-def get_ribbom_ammount(input)
-  total = 0
+def get_ribbon_ammount(input)
   parsed_input = parse_dimensions(input)
-  parsed_input.each do |input|
-    total += get_volume(input)
-    total += get_size_perimeter(get_shortest_side(input))
+  parsed_input.inject(0) do |sum, input|
+    sum + get_volume(input) + get_size_perimeter(get_shortest_side(input))
   end
-  total
 end
 
-p get_ribbom_ammount(puzzle)
+p get_ribbon_ammount(puzzle)
